@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const TodoNew = (props) => {
     // const valueInput = "Hung";
-    const [valueInput, setValueInput] = useState()
+    const [valueInput, setValueInput] = useState("Hung")
 
     const { addNewTodo } = props;
 
