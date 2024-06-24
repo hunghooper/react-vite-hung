@@ -15,11 +15,12 @@ const App = () => {
     alert(`call me ${name}`);
   }
 
+
   return (
     <div className="todo-container">
       <div className="todo-title">To do list</div>
       <TodoNew
-        addNewTodo={addNewTodo}
+
       />
       <TodoData
         name={hoidanit}
