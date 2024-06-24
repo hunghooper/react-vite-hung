@@ -4,9 +4,10 @@ const TodoNew = (props) => {
     // const valueInput = "Hung";
     const [valueInput, setValueInput] = useState("Hung")
 
-    const { addNewTodo, name, todoList } = props;
+    const { addNewTodo, name } = props;
 
     const handleClick = () => {
+        addNewTodo(valueInput)
         console.log(valueInput)
     }
 
