@@ -13,8 +13,13 @@ const UserForm = () => {
         const res = await createUserAPI(fullName, email, password, phone);
         if (res.data) {
             notification.success({
-                message: "create user",
-                description: "create a user is successful"
+                message: "Create user",
+                description: "Create a user is success"
+            })
+        } else {
+            notification.error({
+                message: "Error create user",
+                description: JSON.stringify(res.message)
             })
         }
 
