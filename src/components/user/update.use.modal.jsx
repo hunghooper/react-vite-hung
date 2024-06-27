@@ -1,23 +1,32 @@
-import { useState } from "react";
-import { createUserAPI } from "../../services/api.service";
+import { useEffect, useState } from "react";
+import { updateUserAPI } from "../../services/api.service";
 import { Input, notification, Modal } from "antd";
 
-const UpdateUserModal = () => {
+const UpdateUserModal = (props) => {
+
     const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [id, setId] = useState("");
     const [phone, setPhone] = useState("");
 
-    const [isModalOpen, setIsModalOpen] = useState(true)
-    const handleOk = () => {
-        handleSubmitBtn();
-    }
-    const handleCancel = () => {
-        setIsModalOpen(false)
+    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate, loadUser } = props
+    useEffect(() => {
+        if (dataUpdate) {
+            setFullName(dataUpdate.fullName)
+            setId(dataUpdate._id)
+            setPhone(dataUpdate.phone)
+        }
+    }, [dataUpdate])
+
+    const resetAndCloseModal = () => {
+        setIsModalUpdateOpen(false)
+        setFullName("")
+        setId("")
+        setPhone("")
+        setDataUpdate(null)
     }
 
     const handleSubmitBtn = async () => {
-        const res = await createUserAPI(fullName, email, password, phone);
+        const res = await updateUserAPI(id, fullName, phone);
         if (res.data) {
             notification.success({
                 message: "Update a user",
@@ -33,10 +42,18 @@ const UpdateUserModal = () => {
         }
     }
 
+    const handleOk = () => {
+        handleSubmitBtn();
+        resetAndCloseModal();
+    }
+    const handleCancel = () => {
+        setIsModalUpdateOpen(false)
+    }
+
     return (
         <Modal
             title="Update a user"
-            open={isModalOpen}
+            open={isModalUpdateOpen}
             onOk={handleOk}
             onCancel={handleCancel}
             maskClosable={false}
@@ -46,22 +63,16 @@ const UpdateUserModal = () => {
             <div className="user-form" style={{ margin: "20px 0" }}>
                 <div style={{ display: "flex", gap: " 15px", flexDirection: "column" }}>
                     <div>
+                        <span>ID</span>
+                        <Input
+                            value={id}
+                            disabled />
+                    </div>
+                    <div>
                         <span>Full name</span>
                         <Input
                             value={fullName}
                             onChange={(event) => { setFullName(event.target.value) }} />
-                    </div>
-                    <div>
-                        <span>Email</span>
-                        <Input
-                            value={email}
-                            onChange={(event) => { setEmail(event.target.value) }} />
-                    </div>
-                    <div>
-                        <span>Password</span>
-                        <Input.Password
-                            value={password}
-                            onChange={(event) => { setPassword(event.target.value) }} />
                     </div>
                     <div>
                         <span>Phone number</span>
