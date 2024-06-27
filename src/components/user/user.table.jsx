@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import { Table, Modal } from 'antd';
 import { useEffect, useState } from 'react';
 import { fetchAllUserAPI } from '../../services/api.service';
 
@@ -55,10 +55,12 @@ const UserTable = () => {
 
 
     return (
-        <Table columns={columns}
-            dataSource={dataUsers}
-            rowKey={"_id"}
-        />
+        <>
+            <Table columns={columns}
+                dataSource={dataUsers}
+                rowKey={"_id"}
+            />
+        </>
     );
 }
 
