@@ -41,8 +41,6 @@ const UserForm = (props) => {
                 description: JSON.stringify(res.message)
             })
         }
-
-        console.log(`check state >>>`, res.data);
     }
 
     return (
@@ -56,7 +54,7 @@ const UserForm = (props) => {
                 </Button>
             </div>
             <Modal
-                title="Basic Modal"
+                title="Create user"
                 open={isModalOpen}
                 onOk={handleOk}
                 onCancel={handleCancel}
