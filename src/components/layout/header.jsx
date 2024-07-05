@@ -1,16 +1,14 @@
 import { Link, NavLink } from 'react-router-dom';
-import { Menu } from "antd";
-import { HomeOutlined, UserOutlined, BookOutlined } from "@ant-design/icons"
+import { Menu } from 'antd';
+import { UsergroupAddOutlined, HomeOutlined, AuditOutlined, SettingOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 
 const Header = () => {
-
     const [current, setCurrent] = useState('');
     const onClick = (e) => {
         console.log('click ', e);
         setCurrent(e.key);
-    }
-
+    };
 
     const items = [
         {
@@ -21,13 +19,30 @@ const Header = () => {
         {
             label: <Link to={"/users"}>Users</Link>,
             key: 'users',
-            icon: <UserOutlined />,
+            icon: <UsergroupAddOutlined />
         },
         {
             label: <Link to={"/books"}>Books</Link>,
             key: 'books',
-            icon: <BookOutlined />,
+            icon: <AuditOutlined />,
         },
+
+        {
+            label: 'Cài đặt',
+            key: 'setting',
+            icon: <SettingOutlined />,
+            children: [
+                {
+                    label: <Link to={"/login"}>Đăng nhập</Link>,
+                    key: 'login',
+                },
+                {
+                    label: 'Đăng xuất',
+                    key: 'logout',
+                },
+            ],
+        },
+
     ];
 
     return (
@@ -38,6 +53,6 @@ const Header = () => {
             items={items}
         />
     )
-
 }
+
 export default Header;
